@@ -233,9 +233,7 @@ def solve_stable_matching_lp(men_prefs_1, women_prefs_1, verbose=True):
 
     # ── Print summary ─────────────────────────────────────────────────────────
     if verbose:
-        print("\n" + "=" * 62)
         print("  STABLE MATCHING — LP FORMULATION")
-        print("=" * 62)
         print(f"\n  Solver status : {pulp.LpStatus[prob.status]}")
         print(f"  Objective     : {pulp.value(prob.objective):.0f}  (= n_men = {n_men})")
         print(f"  Variables     : {n_men * n_women}  binary  (x_i_j)")
@@ -257,13 +255,13 @@ def solve_stable_matching_lp(men_prefs_1, women_prefs_1, verbose=True):
         women_rank_1 = build_rank(women_prefs_1)
         men_rank_1   = build_rank(men_prefs_1)
 
-        print("  Matching:  man → woman")
+        """print("  Matching:  man → woman")"""
         for man_1, woman_1 in sorted(matching_1.items()):
             mr = men_rank_1[man_1][woman_1] + 1
             wr = women_rank_1[woman_1][man_1] + 1
-            print(f"    Man {man_1:>3}  →  Woman {woman_1:<3}"
+            """print(f"    Man {man_1:>3}  →  Woman {woman_1:<3}"
                   f"  | man's rank of woman: {mr}/{n_women}"
-                  f"  | woman's rank of man: {wr}/{n_men}")
+                  f"  | woman's rank of man: {wr}/{n_men}")"""
 
         unmatched_w = sorted(set(range(1, n_women+1)) - set(matching_1.values()))
         if unmatched_w:
@@ -271,10 +269,10 @@ def solve_stable_matching_lp(men_prefs_1, women_prefs_1, verbose=True):
         else:
             print("\n  All women are matched.")
 
-        result_display = [matching_1[i] for i in range(1, n_men+1)]
+        """result_display = [matching_1[i] for i in range(1, n_men+1)]
         print(f"\n  Output list (1-indexed): {result_display}")
         print("  result[k-1] = woman matched to man k")
-        print()
+        print()"""
 
         # Stability check
         print("  Stability check:")
@@ -298,14 +296,12 @@ def solve_stable_matching_lp(men_prefs_1, women_prefs_1, verbose=True):
     return result, matching_1
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
 
 def main():
     print()
     print("╔══════════════════════════════════════════════════════════╗")
-    print("║      STABLE MATCHING — INTEGER LINEAR PROGRAM (ILP)     ║")
+    print("║      STABLE MATCHING — INTEGER LINEAR PROGRAM (ILP)      ║")
     print("╚══════════════════════════════════════════════════════════╝")
     print()
 
@@ -331,22 +327,17 @@ def main():
         print(f"     All {n_men} men matched; "
               f"{n_women - n_men} woman/women may be unmatched.")
 
-    if n_men > 50:
-        print("\n  ⚠  Warning: ILP may be slow for n > 50. Consider")
-        print("     using stable_matching_gs_input.py instead.")
 
     # ── Echo preferences ─────────────────────────────────────────────────────
-    print("\n" + "─" * 62)
-    print("  MEN'S PREFERENCES (most preferred → least preferred)")
-    print("─" * 62)
-    for m in sorted(men_prefs_1):
-        print(f"    Man {m:>3}: {men_prefs_1[m]}")
+    """print("  MEN'S PREFERENCES (most preferred → least preferred)")"""
 
-    print("\n" + "─" * 62)
-    print("  WOMEN'S PREFERENCES (most preferred → least preferred)")
-    print("─" * 62)
+    for m in sorted(men_prefs_1):
+        """print(f"    Man {m:>3}: {men_prefs_1[m]}")"""
+
+    """print("  WOMEN'S PREFERENCES (most preferred → least preferred)")"""
+
     for w in sorted(women_prefs_1):
-        print(f"    Woman {w:>3}: {women_prefs_1[w]}")
+        """print(f"    Woman {w:>3}: {women_prefs_1[w]}")"""
 
     # ── Solve ────────────────────────────────────────────────────────────────
     result, matching = solve_stable_matching_lp(men_prefs_1, women_prefs_1, verbose=True)
@@ -354,12 +345,12 @@ def main():
     # ── Final clean output ───────────────────────────────────────────────────
     print()
     print("╔══════════════════════════════════════════════════════════╗")
-    print("║                     FINAL RESULT                        ║")
+    print("║                     FINAL RESULT                         ║")
     print("╚══════════════════════════════════════════════════════════╝")
     print(f"\n  Output list : {result}")
     print()
     for i, w in enumerate(result, start=1):
-        print(f"    Man {i:>3}  →  Woman {w}")
+        """print(f"    Man {i:>3}  →  Woman {w}")"""
     print()
 
 
