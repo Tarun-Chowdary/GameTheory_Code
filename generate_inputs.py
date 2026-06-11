@@ -19,7 +19,7 @@ def generate_input(n, seed=42):
     return "\n".join(lines)
 
 # Generate and save
-for n in [100, 200, 1000]:
+for n in [50,500,2000]:
     with open(f"size_{n}.txt", "w") as f:
         f.write(generate_input(n))
     print(f"Generated size_{n}.txt")
