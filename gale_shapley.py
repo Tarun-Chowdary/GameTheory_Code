@@ -42,9 +42,7 @@ import sys
 import os
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # FILE PARSER
-# ─────────────────────────────────────────────────────────────────────────────
 
 def parse_input_file(filepath):
     """
@@ -133,10 +131,7 @@ def parse_input_file(filepath):
     return n_men, n_women, men_prefs, women_prefs
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # GALE-SHAPLEY ALGORITHM
-# ─────────────────────────────────────────────────────────────────────────────
-
 def gale_shapley(men_prefs, women_prefs, verbose=True):
     """
     Men-proposing Gale-Shapley algorithm.
@@ -164,9 +159,8 @@ def gale_shapley(men_prefs, women_prefs, verbose=True):
     round_num     = 0
 
     if verbose:
-        print("\n" + "=" * 62)
         print("  RUNNING GALE-SHAPLEY (MEN PROPOSING)")
-        print("=" * 62)
+
 
     while free_men:
         round_num += 1
@@ -180,9 +174,9 @@ def gale_shapley(men_prefs, women_prefs, verbose=True):
             proposals[man] = woman
 
         if verbose:
-            print(f"\n  Round {round_num}  {'─'*50}")
+            """print(f"\n  Round {round_num}  {'─'*50}")
             for m, w in proposals.items():
-                print(f"    Man {m:>3}  proposes to  Woman {w}")
+                print(f"    Man {m:>3}  proposes to  Woman {w}")"""
 
         rejections = []
         for man, woman in proposals.items():
@@ -210,16 +204,16 @@ def gale_shapley(men_prefs, women_prefs, verbose=True):
             if rejections:
                 for w, rejected, winner in rejections:
                     if winner:
-                        print(f"    Woman {w:>3}  drops  Man {rejected}  →  holds  Man {winner}")
+                        """print(f"    Woman {w:>3}  drops  Man {rejected}  →  holds  Man {winner}")"""
                     else:
-                        print(f"    Woman {w:>3}  rejects Man {rejected}  (keeps current)")
+                        """print(f"    Woman {w:>3}  rejects Man {rejected}  (keeps current)")"""
             else:
-                print("    No rejections this round.")
+                """print("    No rejections this round.")"""
 
             held_str = "  |  ".join(
                 f"Man {m}↔W{w}" for w, m in sorted(woman_holds.items())
             )
-            print(f"    Held pairs: {held_str}")
+            """print(f"    Held pairs: {held_str}")"""
 
     # Build output list (length = n_men)
     result = [man_matched[i] for i in sorted(man_matched.keys())]
@@ -230,35 +224,31 @@ def gale_shapley(men_prefs, women_prefs, verbose=True):
     unmatched_w = sorted(all_women - matched_w)
 
     if verbose:
-        print(f"\n  {'='*62}")
-        print("  FINAL MATCHING")
-        print(f"  {'─'*62}")
+        """print("  FINAL MATCHING")"""
         for man in sorted(man_matched.keys()):
             woman = man_matched[man]
             mr = next_proposal[man]
             wr = women_rank[woman][man] + 1
-            print(f"    Man {man:>3}  →  Woman {woman:<3}"
+            """print(f"    Man {man:>3}  →  Woman {woman:<3}"
                   f"  | man proposed to {mr} woman(s) before match"
-                  f"  | woman's rank of man: {wr}/{n_men}")
+                  f"  | woman's rank of man: {wr}/{n_men}")"""
 
         if unmatched_w:
-            print(f"\n  Unmatched women: {unmatched_w}")
+            """print(f"\n  Unmatched women: {unmatched_w}")"""
         else:
-            print("\n  All women are matched.")
+            """print("\n  All women are matched.")"""
 
-        print(f"\n  Output list : {result}")
+        """print(f"\n  Output list : {result}")
         print(f"  Length      : {len(result)}  (one entry per man)")
         print("  result[i-1] = woman number matched to man i")
-        print(f"  {'='*62}\n")
+        print(f"  {'='*62}\n")"""
 
         verify_stability(man_matched, men_prefs, women_rank)
 
     return result, man_matched, unmatched_w
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # STABILITY VERIFIER
-# ─────────────────────────────────────────────────────────────────────────────
 
 def verify_stability(matching, men_prefs, women_rank, verbose=True):
     """Scan all man–woman pairs for blocking pairs."""
@@ -313,7 +303,7 @@ def main():
     except (FileNotFoundError, ValueError) as e:
         print(f"\n  ✗  ERROR: {e}")
         sys.exit(1)
-
+    """
     print(f"  ✓  Parsed: {n_men} men, {n_women} women")
     if n_men == n_women:
         print("     Perfect matching: everyone will be matched.")
@@ -333,17 +323,17 @@ def main():
     print("─" * 62)
     for w in sorted(women_prefs):
         print(f"    Woman {w:>3}: {women_prefs[w]}")
-
+    """
     # ── Run algorithm ────────────────────────────────────────────────────────
     result, _, unmatched = gale_shapley(men_prefs, women_prefs, verbose=True)
 
     print("╔══════════════════════════════════════════════════════════╗")
-    print("║                     FINAL RESULT                        ║")
+    print("║                     FINAL RESULT                         ║")
     print("╚══════════════════════════════════════════════════════════╝")
     print(f"\n  Output list : {result}")
     print()
-    for i, w in enumerate(result, start=1):
-        print(f"    Man {i:>3}  →  Woman {w}")
+    #for i, w in enumerate(result, start=1):
+        #print(f"    Man {i:>3}  →  Woman {w}")
     if unmatched:
         print(f"\n  Unmatched women : {unmatched}")
     print()
