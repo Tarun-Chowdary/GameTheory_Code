@@ -222,7 +222,7 @@ def gale_shapley(men_prefs, women_prefs, verbose=True):
     all_women   = set(women_prefs.keys())
     matched_w   = set(man_matched.values())
     unmatched_w = sorted(all_women - matched_w)
-
+#heapsoid algorithm ellipsoid algortihm
     if verbose:
         """print("  FINAL MATCHING")"""
         for man in sorted(man_matched.keys()):

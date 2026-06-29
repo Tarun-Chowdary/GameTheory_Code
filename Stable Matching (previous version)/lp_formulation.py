@@ -326,7 +326,7 @@ def main():
     else:
         print(f"     All {n_men} men matched; "
               f"{n_women - n_men} woman/women may be unmatched.")
-
+#googibser tool
 
     # ── Echo preferences ─────────────────────────────────────────────────────
     """print("  MEN'S PREFERENCES (most preferred → least preferred)")"""

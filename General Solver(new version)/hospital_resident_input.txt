@@ -1,0 +1,16 @@
+---
+TYPE: hospital_resident
+RESIDENTS: r1, r2, r3, r4
+HOSPITALS: h1, h2
+HOSPITAL_CAPACITIES:
+h1: 2
+h2: 2
+RESIDENT_PREFERENCES:
+r1: h1, h2
+r2: h1, h2
+r3: h2, h1
+r4: h2, h1
+HOSPITAL_PREFERENCES:
+h1: r1, r2, r3, r4
+h2: r3, r4, r1, r2
+---

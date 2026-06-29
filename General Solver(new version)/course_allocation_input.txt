@@ -1,0 +1,18 @@
+---
+TYPE: course_allocation
+STUDENTS: s1, s2, s3, s4
+COURSES: c1, c2, c3
+COURSE_CAPACITIES:
+c1: 2
+c2: 1
+c3: 2
+STUDENT_PREFERENCES:
+s1: c1, c2, c3
+s2: c1, c3, c2
+s3: c2, c1, c3
+s4: c3, c1, c2
+COURSE_PREFERENCES:
+c1: s1, s2, s3, s4
+c2: s3, s1, s2, s4
+c3: s4, s1, s2, s3
+---
